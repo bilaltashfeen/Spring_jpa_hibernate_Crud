@@ -16,18 +16,17 @@ import java.util.Date;
 public class Employee implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-//    @OneToOne
-//	@PrimaryKeyJoinColumn
-//	@Column(name="emp_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	 @Column(name="EMP_ID")
     private Long id;
 
     @NotBlank
-//    @Column(name="Employeename")
     private String Employeename;
-    
+    @OneToOne(mappedBy="employee")    
+	private Note notes;
+	
+	
     @NotBlank
-//    @Column(name="Designation")
     private String Designation;
     
 	public Long getId() {
@@ -52,6 +51,14 @@ public class Employee implements Serializable {
 
 	public void setDesignation(String designation) {
 		Designation = designation;
+	}
+
+	public Note getNotes() {
+		return notes;
+	}
+
+	public void setNotes(Note notes) {
+		this.notes = notes;
 	}
 
     // Getters and Setters ... (Omitted for brevity)

@@ -30,48 +30,49 @@ public class EmployeeController {
     
     // Get All Notes
     @GetMapping("/emp")
-    public List<Employee> getAllNotes() {
+    public List<Employee> getAllEmployee() {
         return emprepo.findAll();
     }
     // Create a new Note
     @PostMapping("/emp")
-    public Employee createNote(@RequestBody Employee note) {
-        return emprepo.save(note);
+    public Employee createNote(@RequestBody Employee employee) {
+        return emprepo.save(employee);
     }
     // Get a Single Note
     @GetMapping("/emp/{id}")
-    public ResponseEntity<Employee> getNoteById(@PathVariable(value = "id") Long noteId) {
-    	Employee note = emprepo.findOne(noteId);
-        if(note == null) {
+    public ResponseEntity<Employee> getNoteById(@PathVariable(value = "id") Long employeeId) {
+    	Employee employee = emprepo.findOne(employeeId);
+        if(employee == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().body(note);
+        return ResponseEntity.ok().body(employee);
     }
     // Update a Note
     
     @PutMapping("/emp/{id}")
-    public ResponseEntity<Employee> updateNote(@PathVariable(value = "id") Long noteId, 
-                                           @Valid @RequestBody Employee noteDetails) {
-    	Employee note = emprepo.findOne(noteId);
-        if(note == null) {
+    public ResponseEntity<Employee> updateNote(@PathVariable(value = "id") Long employeeId, 
+                                           @Valid @RequestBody Employee employeeDetails) {
+    	Employee employee = emprepo.findOne(employeeId);
+        if(employee == null) {
             return ResponseEntity.notFound().build();
         }
-        note.setEmployeename(noteDetails.getEmployeename());
-        note.setDesignation(noteDetails.getDesignation());
+        employee.setEmployeename(employeeDetails.getEmployeename());
+        employee.setDesignation(employeeDetails.getDesignation());
 
-        Employee updatedNote = emprepo.save(note);
-        return ResponseEntity.ok(updatedNote);
+        Employee updatedEmployee = emprepo.save(employee);
+        return ResponseEntity.ok(updatedEmployee);
     }
     // Delete a Note	
     @DeleteMapping("/emp/{id}")
-    public ResponseEntity<Employee> deleteNote(@PathVariable(value = "id") Long noteId) {
-    	Employee note = emprepo.findOne(noteId);
-        if(note == null) {
+    public ResponseEntity<Employee> deleteNote(@PathVariable(value = "id") Long employeeId) {
+    	Employee employee = emprepo.findOne(employeeId);
+        if(employee == null) {
             return ResponseEntity.notFound().build();
         }
 
-        emprepo.delete(note);
+        emprepo.delete(employee);
         return ResponseEntity.ok().build();
     }
+    
     
 }

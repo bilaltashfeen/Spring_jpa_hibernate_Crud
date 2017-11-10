@@ -17,30 +17,22 @@ import java.util.Date;
 @Table(name = "notes")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, 
-        allowGetters = true)
+allowGetters = true)
 public class Note implements Serializable {
-    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @OneToOne(mappedBy="emp_id")
-//	@Cascade(value=org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	    @Column(name = "note_id")
+	private Long id;
 
-    @NotBlank
-    private String title;
-    
-    @NotBlank
-    private String content;
-    
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdAt;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedAt;
-
+	@NotBlank
+	private String title;
+	@OneToOne
+	@JoinColumn(name="emp_id", nullable=false)
+	private Employee employee;
+	
+	
+	private Student student;
+	 
 	public Long getId() {
 		return id;
 	}
@@ -56,30 +48,24 @@ public class Note implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-	public String getContent() {
-		return content;
+//	@OneToOne
+//    @JoinColumn(name = "STUDENT_ID")
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
-	public Date getCreatedAt() {
-		return createdAt;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
 
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-    // Getters and Setters ... (Omitted for brevity)
+	// Getters and Setters ... (Omitted for brevity)
 }

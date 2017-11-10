@@ -55,7 +55,7 @@ public class NoteController {
             return ResponseEntity.notFound().build();
         }
         note.setTitle(noteDetails.getTitle());
-        note.setContent(noteDetails.getContent());
+       
 
         Note updatedNote = noteRepository.save(note);
         return ResponseEntity.ok(updatedNote);
