@@ -27,11 +27,18 @@ public class Note implements Serializable {
 	@NotBlank
 	private String title;
 	@OneToOne
-	@JoinColumn(name="emp_id", nullable=false)
+	@JoinColumn(name="emp_id_key", nullable=false)
 	private Employee employee;
-	
-	
+	@ManyToOne
+	@JoinColumn(name="std_id_key", nullable=false)
 	private Student student;
+	public Note(Long id, String title)
+	{
+		this.id=id;
+		this.title=title;
+		
+	}
+	
 	 
 	public Long getId() {
 		return id;
